@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Filter from './Filter';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import FilterCate from './FilterCate';
 
 function ProductList() {
     const [products, setProducts] = useState([]);
@@ -11,17 +12,13 @@ function ProductList() {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
                 const productResponse = await axios.get('https://fakestoreapi.com/products');
                 setProducts(productResponse.data);
                 setData(productResponse.data);
 
                 const categoryResponse = await axios.get('https://fakestoreapi.com/products/categories');
                 setCategories(categoryResponse.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                alert('Failed to fetch data');
-            }
+            
         };
 
         fetchData();
@@ -58,15 +55,7 @@ function ProductList() {
                     reset={reset}
                 />
             </div>
-            <div className="row g-3 align-items-center">
-                <div className="btn-group">
-                    {categories.map((category, index) => (
-                        <button className='btn btn-dark' key={index} onClick={() => filterByCategory(category)}>
-                            {category}
-                        </button>
-                    ))}
-                </div>
-            </div>
+         <FilterCate categories={categories} filterByCategory={filterByCategory} />
             <div className="table-responsive">
                 <table className="table table-striped">
                     <thead>
@@ -86,7 +75,7 @@ function ProductList() {
                                     <td>{product.id}</td>
                                     <td><img src={product.image} alt={product.title} width={60} height={70} /></td>
                                     <td>
-                                        <Link to={`product/${product.id}`} className="text-decoration-none text-dark">
+                                        <Link to={`/products/${product.id}`} className="text-decoration-none text-dark">
                                             {product.title}
                                         </Link>
                                     </td>

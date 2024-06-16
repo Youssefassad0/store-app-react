@@ -18,6 +18,9 @@ function NavBar() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/">UseEffect</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/redux/users">Redux</Link>
+                        </li>
                     </ul>
                 </div>
 
